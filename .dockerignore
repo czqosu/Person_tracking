@@ -1,0 +1,14 @@
+# TensorRT engines (device-specific, auto-rebuilt)
+*.engine
+
+# Build artifacts
+output/
+__pycache__/
+*.pyc
+
+# Dev tools (not needed in container)
+tools/
+.git/
+.gitignore
+.dockerignore
+README.md

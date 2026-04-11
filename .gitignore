@@ -1,0 +1,9 @@
+# TensorRT engines (device-specific, auto-rebuilt on first run)
+*.engine
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Output
+output/*.mp4
