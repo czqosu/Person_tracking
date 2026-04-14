@@ -1,7 +1,7 @@
 # DeepStream 7.1 on Jetson (L4T R36.x / JetPack 6.x)
 # Build:  docker build -t person-tracker .
 # Run:    docker run --runtime=nvidia -v /path/to/video:/data person-tracker --input /data/input.mp4
-FROM nvcr.io/nvidia/deepstream:7.1-triton-l4t
+FROM nvcr.io/nvidia/deepstream:7.1-triton-multiarch
 
 WORKDIR /app
 
