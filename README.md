@@ -22,6 +22,14 @@ filesrc → qtdemux → h264parse → nvv4l2decoder (NVDEC)
 - **NvDeepSORT + OSNet**: 512-dim re-ID features (MSMT17-trained), occlusion recovery up to ~2s
 - Full GPU pipeline: NVDEC → TensorRT → NVENC, no CPU-GPU copies
 
+## Design Choices
+
+**Why PeopleNet over YOLOv8?** PeopleNet is trained specifically on large-scale pedestrian datasets, whereas YOLOv8 is a general-purpose 80-class detector where "person" is just one of many categories. PeopleNet ships with an official INT8 calibration table and integrates natively with DeepStream on Jetson — no custom ONNX export or post-processing parser needed. In dense pedestrian scenes, a specialized detector consistently outperforms a general one.
+
+**Why NvDeepSORT over simple SORT/ByteTrack?** Pure motion-based trackers (Kalman + IoU matching) lose track IDs the moment a person is occluded. NvDeepSORT adds a 512-dimensional appearance descriptor (OSNet, trained on 1,041 identities) so that when a person reappears after occlusion, the tracker can re-identify them by visual similarity rather than just position. This is critical in crowded scenes with frequent occlusions.
+
+**Why DeepStream over OpenCV + TensorRT?** DeepStream provides an end-to-end GPU pipeline where decode, inference, tracking, and encode run in parallel with zero-copy memory (NVMM). Achieving the same with OpenCV would require manual thread management, explicit `cudaMemcpy` calls, and significantly more code for comparable throughput.
+
 ## Quick Start
 
 ```bash
