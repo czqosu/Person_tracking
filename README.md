@@ -35,6 +35,7 @@ filesrc → qtdemux → h264parse → nvv4l2decoder (NVDEC)
 ### 1. Build
 
 ```bash
+cd person_tracking
 sudo docker build --network=host -t person-tracker .
 ```
 
