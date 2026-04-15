@@ -48,5 +48,5 @@ ReID:
   offsets: [0.0, 0.0, 0.0]
   netScaleFactor: 0.00392156862745098
   addFeatureNormalization: 1
-  onnxFile: "../models/osnet_x0_25_msmt17.onnx"
-  modelEngineFile: "../models/osnet_x0_25_msmt17.onnx_b16_gpu0_fp16.engine"
+  onnxFile: "/app/models/osnet_x0_25_msmt17.onnx"
+  modelEngineFile: "/app/models/osnet_x0_25_msmt17.onnx_b16_gpu0_fp16.engine"
