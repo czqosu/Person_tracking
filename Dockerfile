@@ -10,10 +10,14 @@ ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/nvidia:${LD_LIBRARY_PATH}
 
 # ── Fix 2: Install real NVIDIA DeepStream Python bindings (pyds 1.1.11) ─
 # The pip package named "pyds" is a different unrelated project.
-RUN wget -q -O /tmp/pyds.whl \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcairo2-dev pkg-config python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN wget -q -P /tmp/ \
     "https://github.com/NVIDIA-AI-IOT/deepstream_python_apps/releases/download/v1.1.11/pyds-1.1.11-py3-none-linux_aarch64.whl" \
-    && pip3 install /tmp/pyds.whl \
-    && rm /tmp/pyds.whl
+    && pip3 install /tmp/pyds-1.1.11-py3-none-linux_aarch64.whl \
+    && rm /tmp/pyds-1.1.11-py3-none-linux_aarch64.whl
 
 # Copy source and assets
 # .dockerignore excludes *.engine (device-specific, auto-rebuilt on first run)
